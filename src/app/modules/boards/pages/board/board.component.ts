@@ -12,6 +12,7 @@ import { BoardsService } from '@services/boards.service';
 import { Board } from '@models/board.model';
 import { Card } from '@models/card.model';
 import { CardsService } from '@services/cards.service';
+import { List } from '@models/list.model';
 
 @Component({
   selector: 'app-board',
@@ -104,5 +105,22 @@ export class BoardComponent implements OnInit {
       console.log(cardUpdated);
 
     })
+  }
+
+  openFormCard(list: List) {
+    if(this.board?.lists){
+      this.board.lists = this.board.lists.map(iteratorList => {
+        if(iteratorList.id === list.id) {
+          return {
+            ...iteratorList,
+            showCardForm: true
+          }
+        }
+        return {
+          ...iteratorList,
+          showCardForm: false,
+        }
+      });
+    }
   }
 }
